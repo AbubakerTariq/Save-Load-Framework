@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class Door : SaveableObject
+public class Player : SaveableObject
 {
     private class Data
     {
-        public bool isOpen;
+        public float hp;
+        public float remainingAmmo;
         public Vector3 position;
-        public float rotationY;
     }
 
     private void Awake()
@@ -16,9 +16,8 @@ public class Door : SaveableObject
 
         if (data != null)
         {
-            // use the isOpen property here
+            // use the hp and ammo property here
             transform.position = data.position;
-            transform.rotation = Quaternion.Euler(0, data.rotationY, 0);
         }
     }
 
@@ -27,9 +26,9 @@ public class Door : SaveableObject
         // Save the state when the object is destroyed
         var data = new Data
         {
-            isOpen = true,
+            hp = Random.Range(1, 100),
+            remainingAmmo = Random.Range(1, 100),
             position = transform.position,
-            rotationY = transform.rotation.eulerAngles.y
         };
 
         SaveManager.Instance.CaptureObjectState(ObjectID, data);

@@ -6,6 +6,7 @@ public class Chair : SaveableObject
     {
         public bool canSit;
         public Vector3 position;
+        public Quaternion quaternion;
     }
 
     private void Awake()
@@ -16,7 +17,7 @@ public class Chair : SaveableObject
         if (data != null)
         {
             // use the canSit property here
-            transform.position = data.position;
+            transform.SetPositionAndRotation(data.position, data.quaternion);
         }
     }
 
@@ -26,7 +27,8 @@ public class Chair : SaveableObject
         var data = new Data
         {
             canSit = true,
-            position = transform.position
+            position = transform.position,
+            quaternion = transform.rotation,
         };
 
         SaveManager.Instance.CaptureObjectState(ObjectID, data);
