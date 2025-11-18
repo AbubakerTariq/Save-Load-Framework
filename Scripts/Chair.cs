@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class Door : SaveableObject
+public class Chair : SaveableObject
 {
     private class Data
     {
-        public bool isOpen;
-        public float rotationY;
+        public bool canSit;
+        public Vector3 position;
     }
 
     private void Awake()
@@ -15,8 +15,8 @@ public class Door : SaveableObject
 
         if (data != null)
         {
-            // use the isOpen property here
-            transform.rotation = Quaternion.Euler(0, data.rotationY, 0);
+            // use the canSit property here
+            transform.position = data.position;
         }
     }
 
@@ -25,8 +25,8 @@ public class Door : SaveableObject
         // Save the state when the object is destroyed
         var data = new Data
         {
-            isOpen = true,
-            rotationY = transform.rotation.eulerAngles.y
+            canSit = true,
+            position = transform.position
         };
 
         SaveManager.Instance.CaptureObjectState(ObjectID, data);
